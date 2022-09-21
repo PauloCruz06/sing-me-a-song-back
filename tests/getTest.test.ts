@@ -6,21 +6,21 @@ beforeAll( async() =>
     await prisma.$executeRaw`TRUNCATE TABLE recommendations CASCADE;`
 );
 
-describe("Test route GET '/'", () => {
-    it.todo("must return an object");
+describe("Test route GET '/recommendations'", () => {
+    it.todo("must return an array");
 });
 
-describe("Test route GET '/random'", () => {
+describe("Test route GET '/recommendations/random'", () => {
     it.todo(`must return status code 404 if
              no recommendation exists`);
     it.todo("must return an object");
 });
 
-describe("Test route GET '/top/:amount'", () => {
+describe("Test route GET '/recommendations/top/:amount'", () => {
     it.todo("must return an array");
 });
 
-describe("Test route GET '/:id'", () => {
+describe("Test route GET '/recommendations/:id'", () => {
     it.todo("must return an object");
     it.todo(`must return status code 404 if
              there is no recommendation with the id passed`);
