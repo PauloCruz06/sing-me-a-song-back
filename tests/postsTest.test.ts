@@ -10,13 +10,18 @@ beforeAll( async() =>
 
 describe("Test route POST '/recommendations'", () => { 
     it("must return a 201 status code", async() => {
-        const result = await supertest(app).post('/recommendations').send(recommendation());
+        const result = await supertest(app)
+            .post('/recommendations')
+            .send(recommendation());
         expect(result.status).toBe(201);
     });
+    
     it(`must to return a 409 status code when
              trying to insert another recommendation
              with the same name`, async() => {
-        const result = await supertest(app).post('/recommendations').send(recommendation());
+        const result = await supertest(app)
+            .post('/recommendations')
+            .send(recommendation());
         expect(result.status).toBe(409);
     });
 });
