@@ -4,7 +4,7 @@ import supertest from "supertest";
 
 import recommendation from "./factories/recommendationFactory.js";
 
-beforeAll( async() => 
+beforeEach( async() => 
     await prisma.$executeRaw`TRUNCATE TABLE recommendations CASCADE;`
 );
 
@@ -34,12 +34,16 @@ describe("Test route POST '/recommendations'", () => {
 
 describe("Test route POST '/recommendations/:id/upvote'", () => {
     it("must return a 200 status code", async() => {
+        await supertest(app)
+            .post('/recommendations')
+            .send(recommendation());
+
         const random = await supertest(app)
-            .get('/recommendations/random')
+            .get('/recommendations')
             .send();
 
         const result = await supertest(app)
-            .post(`/recommendations/${random.body.id}/upvote`)
+            .post(`/recommendations/${random.body[0].id}/upvote`)
             .send();
         expect(result.status).toBe(200);
     });
@@ -55,13 +59,17 @@ describe("Test route POST '/recommendations/:id/upvote'", () => {
 
 describe("Test route POST '/recommendations/:id/downvote'", () => {
     it("must return a 200 status code", async() => {
+        await supertest(app)
+            .post('/recommendations')
+            .send(recommendation());
+
         const random = await supertest(app)
-            .get('/recommendations/random')
+            .get('/recommendations')
             .send();
-        
+
         const result = await supertest(app)
-            .post(`/recommendations/${random.body.id}/downvote`)
-             .send();
+            .post(`/recommendations/${random.body[0].id}/downvote`)
+            .send();
         expect(result.status).toBe(200);
     });
 

@@ -24,8 +24,6 @@ describe("Test route GET '/recommendations'", () => {
 describe("Test route GET '/recommendations/random'", () => {
     it(`must return status code 404 if
         no recommendation exists`, async() => {
-        await prisma.$executeRaw`TRUNCATE TABLE recommendations CASCADE;`;
-        
         const result = await supertest(app)
             .get('/recommendations/random')
             .send();
