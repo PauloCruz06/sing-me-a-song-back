@@ -5,16 +5,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "start": "nodemon src/server.ts",
+    "dev": "dotenv -e .env.test nodemon src/server.ts",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -i --no-cache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/faker": "^6.6.9",
     "@types/jest": "^27.5.0",
     "@types/joi": "^17.2.3",
     "@types/node": "^16.3.3",
@@ -37,9 +40,11 @@
   "dependencies": {
     "@prisma/client": "^4.0.0",
     "cors": "^2.8.5",
+    "coverage": "^0.4.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "faker": "^6.6.6",
     "joi": "^17.4.1",
     "pg": "^8.8.0",
     "react-player": "^2.10.0"

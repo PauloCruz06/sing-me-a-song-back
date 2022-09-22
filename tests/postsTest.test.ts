@@ -17,11 +17,17 @@ describe("Test route POST '/recommendations'", () => {
     });
     
     it(`must to return a 409 status code when
-             trying to insert another recommendation
-             with the same name`, async() => {
+        trying to insert another recommendation
+        with the same name`, async() => {
+        const rec = recommendation();
+
+        await supertest(app)
+            .post('/recommendations')
+            .send(rec);
+        
         const result = await supertest(app)
             .post('/recommendations')
-            .send(recommendation());
+            .send(rec);
         expect(result.status).toBe(409);
     });
 });
@@ -52,7 +58,7 @@ describe("Test route POST '/recommendations/:id/downvote'", () => {
         const random = await supertest(app)
             .get('/recommendations/random')
             .send();
-
+        
         const result = await supertest(app)
             .post(`/recommendations/${random.body.id}/downvote`)
              .send();
