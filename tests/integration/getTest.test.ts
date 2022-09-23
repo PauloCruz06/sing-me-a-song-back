@@ -1,8 +1,8 @@
-import { prisma } from "../src/database.js";
-import app from "../src/app.js";
+import { prisma } from "../../src/database.js";
+import app from "../../src/app.js";
 import supertest from "supertest";
 
-import recommendation from "./factories/recommendationFactory.js";
+import recommendation from "../factories/recommendationFactory.js";
 
 beforeEach( async() => {
     await prisma.$executeRaw`TRUNCATE TABLE recommendations CASCADE;`;
