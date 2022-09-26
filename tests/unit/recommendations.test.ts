@@ -230,13 +230,54 @@ describe("unit tests of 'getTop' function in 'recommendationsService'", () => {
 
         jest
             .spyOn(recommendationRepository, 'getAmountByScore')
-            .mockImplementationOnce((): any => ([
-                {id: 3, ...recommendation(), score: 0},
-                {id: 4, ...recommendation(), score: 2}
-            ]));
+            .mockImplementationOnce((): any => {
+                return ([
+                    {id: 3, ...recommendation(), score: 0},
+                    {id: 4, ...recommendation(), score: 2}
+                ]);
+            });
         
         const result = await recommendationService.getTop(amount);
 
         expect(result).toBeInstanceOf(Array);
     });
+});
+
+describe("unit tests of 'getRandom' function in 'recommendationsService'", () => {
+    it("must return a random recommendation", async() => {
+        jest
+            .spyOn(recommendationRepository, 'findAll')
+            .mockImplementationOnce((): any => {
+                return ([
+                    {id: 3, ...recommendation(), score: 0},
+                    {id: 4, ...recommendation(), score: 2},
+                    {id: 6, ...recommendation(), score: -1}
+                ]);
+            });
+        
+        const result = await recommendationService.getRandom();
+
+        expect(result).toBeInstanceOf(Object);
+    });
+
+    it("must return a 'not_found' message when no recommendations", async() => {
+        jest
+            .spyOn(recommendationRepository, 'findAll')
+            .mockImplementationOnce((): any => {
+                return [];
+            });
+
+        jest
+            .spyOn(recommendationRepository, 'findAll')
+            .mockImplementationOnce((): any => {
+                return [];
+            });
+        
+        const promise = recommendationService.getRandom();
+        
+        expect(promise).rejects.toEqual({
+            type: "not_found",
+            message: ""
+        });
+    })
 });
