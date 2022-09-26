@@ -1,13 +1,9 @@
 # <p align = "center"> Projeto #21 Sing me a song (back) </p>
 
-<p align="center" style="height: 250px">
-   <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f399-fe0f.svg">
-</p>
 
 <p align = "center">
-   <img src="https://img.shields.io/badge/author-SEU_NOME-4dae71?style=flat-square" />
-   <img src="https://img.shields.io/github/languages/count/PauloCruz06/
-projeto21-sing-me-a-song-back?color=4dae71&style=flat-square" />
+   <img src="https://img.shields.io/badge/author-PauloCruz06-4dae71?style=flat-square" />
+   <img src="https://img.shields.io/github/languages/count/PauloCruz06/projeto21-sing-me-a-song-back?color=4dae71&style=flat-square" />
 </p>
 
 
