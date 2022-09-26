@@ -168,3 +168,75 @@ describe("unit tests of 'downvote' function in 'recommendationsService'", () => 
         });
     }); 
 });
+
+describe("unit tests of 'getById' function in 'recommendationsService'", () => {
+    it("must return a recommedation", async() => {
+        const rec = recommendation();
+        const id = 3;
+
+        jest
+            .spyOn(recommendationRepository, 'find')
+            .mockImplementationOnce((): any => {
+                return {
+                    id: 3,
+                    ...rec,
+                    score: 0
+                }
+            });
+
+        const result = await recommendationService.getById(id);
+
+        expect(result).toEqual({
+            id: 3,
+            ...rec,
+            score: 0
+        });
+    });
+
+    it("must return a 'not_found' message when not finding a recommendation", async() => {
+        const id = 2;
+
+        jest
+            .spyOn(recommendationRepository, 'find')
+            .mockImplementationOnce((): any => {});
+        
+        const promise = recommendationService.getById(id);
+
+        expect(promise).rejects.toEqual({
+            type: "not_found",
+            message: ""
+        });
+    })
+});
+
+describe("unit tests of 'get' function in 'recommendationsService'", () => {
+    it("must return a recommendationsList", async() => {
+        jest
+            .spyOn(recommendationRepository, 'findAll')
+            .mockImplementationOnce((): any => ([
+                {id: 3, ...recommendation(), score: 0},
+                {id: 4, ...recommendation(), score: 2}
+            ]));
+        
+        const result = await recommendationService.get();
+
+        expect(result).toBeInstanceOf(Array);
+    });
+});
+
+describe("unit tests of 'getTop' function in 'recommendationsService'", () => {
+    it("must return a recommendationsList", async() => {
+        const amount = 10;
+
+        jest
+            .spyOn(recommendationRepository, 'getAmountByScore')
+            .mockImplementationOnce((): any => ([
+                {id: 3, ...recommendation(), score: 0},
+                {id: 4, ...recommendation(), score: 2}
+            ]));
+        
+        const result = await recommendationService.getTop(amount);
+
+        expect(result).toBeInstanceOf(Array);
+    });
+});
